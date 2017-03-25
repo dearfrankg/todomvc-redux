@@ -102,9 +102,8 @@ describe('TextInput Component', (Component = TextInput) => {
   })
 
 
-  describe('function prop calls', () => {
-    describe('input field', () => {
-
+  describe('callbacks', () => {
+    describe('input', () => {
       describe('when change event', () => {
         it('should set input value', () => {
           const eventData = {target: {value: 'hello'}}
@@ -146,37 +145,35 @@ describe('TextInput Component', (Component = TextInput) => {
 
       })
 
-      describe('when keydown event', () => {
-        describe('when not enter_key', () => {
-          it('should not call handleSave', () => {
-            const eventData = {which: 27, target: {value: 'hello'}}
-            const input = getComponent().find('input')
-            input.simulate('keydown', eventData)
-            expect(props.handleSave).not.toHaveBeenCalledWith('hello')
-          })
+      describe('when keydown event without ENTER key', () => {
+        it('should not call handleSave', () => {
+          const eventData = {which: 27, target: {value: 'hello'}}
+          const input = getComponent().find('input')
+          input.simulate('keydown', eventData)
+          expect(props.handleSave).not.toHaveBeenCalledWith('hello')
+        })
+      })
+
+      describe('when keydown event with ENTER key', () => {
+        it('should call handleSave', () => {
+          const eventData = {which: 13, target: {value: 'hello'}}
+          const input = getComponent().find('input')
+          input.simulate('keydown', eventData)
+          expect(props.handleSave).toHaveBeenCalledWith('hello')
         })
 
-        describe('when enter_key', () => {
-          it('should call handleSave', () => {
+        describe('when newTodo is true', () => {
+          beforeEach(() => {
+            props.newTodo = true
+          })
+
+          it('should clear input field', () => {
             const eventData = {which: 13, target: {value: 'hello'}}
             const input = getComponent().find('input')
             input.simulate('keydown', eventData)
-            expect(props.handleSave).toHaveBeenCalledWith('hello')
-          })
-
-          describe('when newTodo is true', () => {
-            beforeEach(() => {
-              props.newTodo = true
-            })
-
-            it('should clear input field', () => {
-              const eventData = {which: 13, target: {value: 'hello'}}
-              const input = getComponent().find('input')
-              input.simulate('keydown', eventData)
-              const actual = input.props().value
-              const expected = ''
-              expect(actual).toBe(expected)
-            })
+            const actual = input.props().value
+            const expected = ''
+            expect(actual).toBe(expected)
           })
         })
       })
@@ -186,78 +183,78 @@ describe('TextInput Component', (Component = TextInput) => {
 
   describe('props passed to components', () => {
     describe('input', () => {
-      it('should pass text to type prop', () => {
+      it('should set type prop to `text`', () => {
         const actual = getComponent().find('input').props().type
         const expected = 'text'
         expect(actual).toBe(expected)
       })
 
-      it('should pass placeholder to placeholder prop', () => {
+      it('should set placeholder prop to `placeholder`', () => {
         const actual = getComponent().find('input').props().placeholder
         const expected = props.placeholder
         expect(actual).toBe(expected)
       })
 
-      it('should pass handleChange method to onChange prop', () => {
+      it('should set onChange prop to `handleChange method`', () => {
         const actual = getComponent().find('input').props().onChange
         const expected = getComponent().instance().handleChange
         expect(actual).toBe(expected)
       })
 
-      it('should pass handleBlur method to onBlur prop', () => {
+      it('should set onBlur prop to `handleBlur method`', () => {
         const actual = getComponent().find('input').props().onBlur
         const expected = getComponent().instance().handleBlur
         expect(actual).toBe(expected)
       })
 
-      it('should pass handleSubmit method to onKeyDown prop', () => {
+      it('should set onKeyDown prop to `handleSubmit method`', () => {
         const actual = getComponent().find('input').props().onKeyDown
         const expected = getComponent().instance().handleSubmit
         expect(actual).toBe(expected)
       })
 
-      describe('when text is defined', () => {
+      describe('when text prop is defined', () => {
         beforeEach(() => {
           props.text = 'hello'
         })
 
-        it('should set value to text', () => {
+        it('should set value prop to `text`', () => {
           const actual = getComponent().find('input').props().value
           const expected = props.text
           expect(actual).toBe(expected)
         })
       })
 
-      describe('when text is undefined', () => {
+      describe('when text prop is undefined', () => {
         beforeEach(() => {
           props.text = undefined
         })
 
-        it('should set value to empty string', () => {
+        it('should set value prop to empty string', () => {
           const actual = getComponent().find('input').props().value
           const expected = ''
           expect(actual).toBe(expected)
         })
       })
 
-      describe('when editing is true', () => {
+      describe('when editing prop is true', () => {
         beforeEach(() => {
           props.editing = true
         })
 
-        it('should have class "edit"', () => {
+        it('should set class prop to include `edit`', () => {
           const actual = getComponent().find('input').hasClass('edit')
           const expected = true
           expect(actual).toBe(expected)
         })
       })
 
-      describe('when newTodo is true', () => {
+      describe('when newTodo prop is true', () => {
         beforeEach(() => {
           props.newTodo = true
         })
 
-        it('should have class "new-todo"', () => {
+        it('should set class prop to include `new-todo`', () => {
           const actual = getComponent().find('input').hasClass('new-todo')
           const expected = true
           expect(actual).toBe(expected)

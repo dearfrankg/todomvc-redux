@@ -115,7 +115,7 @@ describe('TodoItem Component', (Component = TodoItem) => {
   })
 
 
-  describe('function prop calls', () => {
+  describe('callbacks', () => {
     describe('when in edit mode', () => {
       describe('when saving with text.length > 0', () => {
         it('should call editTodo and exit edit mode', () => {
@@ -172,21 +172,21 @@ describe('TodoItem Component', (Component = TodoItem) => {
   describe('props passed to components', () => {
     describe('when in edit mode', () => {
       describe('TextInput', () => {
-        it('should pass todo.text to text prop', () => {
+        it('should set text prop to `todo.text`', () => {
           getComponent().instance().handleDoubleClick()
           const actual = getComponent().find(TextInput).props().text
           const expected = props.todo.text
           expect(actual).toBe(expected)
         })
 
-        it('should pass state.editing to editing prop', () => {
+        it('should set editing prop to `state.editing`', () => {
           getComponent().instance().handleDoubleClick()
           const actual = getComponent().find(TextInput).props().editing
           const expected = true
           expect(actual).toBe(expected)
         })
 
-        it('should pass a function to handleSave prop', () => {
+        it('should set handleSave prop to an anonymous function', () => {
           getComponent().instance().handleDoubleClick()
           const actual = typeof getComponent().find(TextInput).props().handleSave
           const expected = 'function'
@@ -197,19 +197,19 @@ describe('TodoItem Component', (Component = TodoItem) => {
 
     describe('when in view mode', () => {
       describe('input', () => {
-        it('should pass "checkbox" to type prop', () => {
+        it('should set type prop to `checkbox`', () => {
           const actual = getComponent().find('input').props().type
           const expected = 'checkbox'
           expect(actual).toBe(expected)
         })
 
-        it('should pass todo.completed to checked prop', () => {
+        it('should set checked prop to `todo.completed`', () => {
           const actual = getComponent().find('input').props().checked
           const expected = props.todo.completed
           expect(actual).toBe(expected)
         })
 
-        it('should pass a function to onChange prop', () => {
+        it('should set onChange prop to an anonymous function', () => {
           const actual = typeof getComponent().find('input').props().onChange
           const expected = 'function'
           expect(actual).toBe(expected)
@@ -217,7 +217,7 @@ describe('TodoItem Component', (Component = TodoItem) => {
       })
 
       describe('label', () => {
-        it('should pass handleDoubleClick method to onDoubleClick prop', () => {
+        it('should set onDoubleClick prop to `handleDoubleClick method`', () => {
           const actual = getComponent().find('label').props().onDoubleClick
           const expected = getComponent().instance().handleDoubleClick
           expect(actual).toBe(expected)
@@ -225,7 +225,7 @@ describe('TodoItem Component', (Component = TodoItem) => {
       })
 
       describe('button', () => {
-        it('should pass function to onClick prop', () => {
+        it('should set onClick prop to an anonymous function', () => {
           const actual = typeof getComponent().find('button').props().onClick
           const expected = 'function'
           expect(actual).toBe(expected)

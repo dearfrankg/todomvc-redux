@@ -51,7 +51,7 @@ describe('Footer Component', (Component = Footer) => {
         props.activeCount = 0
       })
 
-      it('should render todo count as "No items left"', () => {
+      it('should render todo count as `No items left`', () => {
         const actual = getComponent().find('.todo-count').text()
         const expected = 'No items left'
         expect(actual).toBe(expected)
@@ -63,7 +63,7 @@ describe('Footer Component', (Component = Footer) => {
         props.activeCount = 1
       })
 
-      it('should render todo count as "1 item left"', () => {
+      it('should render todo count as `1 item left`', () => {
         const actual = getComponent().find('.todo-count').text()
         const expected = '1 item left'
         expect(actual).toBe(expected)
@@ -75,7 +75,7 @@ describe('Footer Component', (Component = Footer) => {
         props.activeCount = 2
       })
 
-      it('should render todo count as "2 items left"', () => {
+      it('should render todo count as `2 items left`', () => {
         const actual = getComponent().find('.todo-count').text()
         const expected = '2 items left'
         expect(actual).toBe(expected)
@@ -105,11 +105,26 @@ describe('Footer Component', (Component = Footer) => {
         expect(actual).toBe(expected)
       })
     })
+
+    describe('when filter prop matches filter link', () => {
+      beforeEach(() => {
+        props.filter = SHOW_ACTIVE
+      })
+      it('should render filter link with class `selected`', () => {
+        const actual = getComponent().find('a').at(1).props().className
+        const expected = 'selected'
+        expect(actual).toBe(expected)
+      })
+    })
+
+
+
+
   })
 
 
-  describe('function prop calls', () => {
-    describe('when filter link clicked', () => {
+  describe('callbacks', () => {
+    describe('when clicking filter link', () => {
       it('should call handleSetFilter with the correct filter', () => {
         const handleSetFilter = getComponent().props().handleSetFilter
         const filters = getComponent().find('.filters')
@@ -122,7 +137,7 @@ describe('Footer Component', (Component = Footer) => {
       })
     })
 
-    describe('when clear-completed button clicked', () => {
+    describe('when clicking clear-completed button', () => {
       it('should call clearCompleted', () => {
         const clearCompleted = getComponent().props().clearCompleted
         const clearCompletedButton = getComponent().find('.clear-completed')
@@ -135,7 +150,7 @@ describe('Footer Component', (Component = Footer) => {
 
   describe('props passed to components', () => {
     describe('filter links', () => {
-      it('should pass handleSetFilter to onClick prop', () => {
+      it('should set onClick prop to `handleSetFilter`', () => {
         const handleSetFilter = getComponent().props().handleSetFilter
         const filters = getComponent().find('.filters')
         const filtersArray = [SHOW_ALL, SHOW_ACTIVE, SHOW_COMPLETED]
@@ -145,21 +160,10 @@ describe('Footer Component', (Component = Footer) => {
           expect(handleSetFilter).toHaveBeenCalled()
         })
       })
-
-      describe('when filter prop matches filter link', () => {
-        beforeEach(() => {
-          props.filter = SHOW_ACTIVE
-        })
-        it('should pass "selected" to className prop', () => {
-          const actual = getComponent().find('a').at(1).props().className
-          const expected = 'selected'
-          expect(actual).toBe(expected)
-        })
-      })
     })
 
     describe('clear-completed button', () => {
-      it('should pass clearCompleted to onClick prop', () => {
+      it('should set onClick prop to `clearCompleted`', () => {
         const actual = getComponent().find('.clear-completed').props().onClick
         const expected = getComponent().props().clearCompleted
         expect(actual).toBe(expected)

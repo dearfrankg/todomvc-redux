@@ -39,7 +39,6 @@ describe('MainSection Component', (Component = MainSection) => {
     mountedComponent = undefined
   })
 
-
   describe('rendering', () => {
     it('should render correctly', () => {
       const main = getComponent().find('.main')
@@ -122,8 +121,7 @@ describe('MainSection Component', (Component = MainSection) => {
     })
   })
 
-
-  describe('function prop calls', () => {
+  describe('callbacks', () => {
     describe('when clicking toggle-all', () => {
       it('should call completeAll', () => {
         getComponent().find('.toggle-all').simulate('change')
@@ -132,12 +130,9 @@ describe('MainSection Component', (Component = MainSection) => {
     })
   })
 
-
   describe('props passed to components', () => {
-
-
     describe('toggle-all', () => {
-      it('should pass actions.completeAll to onChange prop', () => {
+      it('should set onChange prop to `actions.completeAll`', () => {
         const actual = getComponent().find('.toggle-all').props().onChange
         const expected = props.actions.completeAll
         expect(actual).toBe(expected)
@@ -151,7 +146,7 @@ describe('MainSection Component', (Component = MainSection) => {
           ]
         })
 
-        it('should pass false to checked prop', () => {
+        it('should set checked prop to `false`', () => {
           const actual = getComponent().find('.toggle-all').props().checked
           const expected = false
           expect(actual).toBe(expected)
@@ -166,7 +161,7 @@ describe('MainSection Component', (Component = MainSection) => {
           ]
         })
 
-        it('should pass true to checked prop', () => {
+        it('should set checked prop to `true`', () => {
           const actual = getComponent().find('.toggle-all').props().checked
           const expected = true
           expect(actual).toBe(expected)
@@ -175,14 +170,14 @@ describe('MainSection Component', (Component = MainSection) => {
     })
 
     describe('todo-list-item', () => {
-      it('should pass a todo as a prop', () => {
+      it('should set todo prop to `todo`', () => {
         const todoItem = getComponent().find('.todo-list').find(TodoItem).at(0)
         const actual = todoItem.props().todo
         const expected = props.todos[0]
         expect(actual).toBe(expected)
       })
 
-      it('should pass actions individually as props', () => {
+      it('should set props for each action', () => {
         const todoItem = getComponent().find('.todo-list').find(TodoItem).at(0)
         for (let action in props.actions) {
           const actual = todoItem.props()[action]
@@ -193,31 +188,31 @@ describe('MainSection Component', (Component = MainSection) => {
     })
 
     describe('footer', () => {
-      it('should pass calculated completedCount as a prop', () => {
+      it('should set completedCount prop to `completedCount`', () => {
         const actual = getComponent().find(Footer).props().completedCount
         const expected = 1
         expect(actual).toBe(expected)
       })
 
-      it('should pass calculated activeCount as a prop', () => {
+      it('should set activeCount prop to `activeCount`', () => {
         const actual = getComponent().find(Footer).props().activeCount
         const expected = 1
         expect(actual).toBe(expected)
       })
 
-      it('should pass state.filter to filter prop', () => {
+      it('should set filter prop to `state.filter`', () => {
         const actual = getComponent().instance().state.filter
         const expected = SHOW_ALL
         expect(actual).toBe(expected)
       })
 
-      it('should pass handleSetFilter method to handleSetFilter prop', () => {
+      it('should set handleSetFilter prop to `handleSetFilter method`', () => {
         const actual = getComponent().find(Footer).props().handleSetFilter
         const expected = getComponent().instance().handleSetFilter
         expect(actual).toBe(expected)
       })
 
-      it('should pass actions.clearCompleted to clearCompleted prop', () => {
+      it('should set clearCompleted prop to `actions.clearCompleted`', () => {
         const actual = getComponent().find(Footer).props().clearCompleted
         const expected = props.actions.clearCompleted
         expect(actual).toBe(expected)
