@@ -196,7 +196,7 @@ describe('TodoItem Component', (Component = TodoItem) => {
     })
 
     describe('when in view mode', () => {
-      describe('input', () => {
+      describe('todo complete toggle', () => {
         it('should set type prop to `checkbox`', () => {
           const actual = getComponent().find('input').props().type
           const expected = 'checkbox'
@@ -216,7 +216,7 @@ describe('TodoItem Component', (Component = TodoItem) => {
         })
       })
 
-      describe('label', () => {
+      describe('todo label', () => {
         it('should set onDoubleClick prop to `handleDoubleClick method`', () => {
           const actual = getComponent().find('label').props().onDoubleClick
           const expected = getComponent().instance().handleDoubleClick
@@ -224,7 +224,7 @@ describe('TodoItem Component', (Component = TodoItem) => {
         })
       })
 
-      describe('button', () => {
+      describe('todo destroy button', () => {
         it('should set onClick prop to an anonymous function', () => {
           const actual = typeof getComponent().find('button').props().onClick
           const expected = 'function'
